@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Напиши своим · Метод Родочинской</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@600;800&display=swap">
+<style>
+:root{--m:#E3165E;--l:#B565D8;--o:#94901F;--ink:#2A1A24;--mute:#8A7480;--soft:#FBF3F7;--lsoft:#F6EEFB;--osoft:#F5F4E4;--line:#F0DCE6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5;font-size:16px;overflow-x:hidden;
+ padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 60px;position:relative}
+.top{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-block;border-radius:99px;padding:6px 14px;font-weight:800;font-size:11px;letter-spacing:.06em;color:#fff;
+ background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%),linear-gradient(180deg,#FF5C93,var(--m) 55%,#B80E4A);border-bottom:3px solid #9E0C40}
+.pill.l{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%),linear-gradient(180deg,#D99BF0,var(--l) 55%,#8E3FB3);border-bottom-color:#6E2C8E}
+.pill.o{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%),linear-gradient(180deg,#C2BD3E,var(--o) 55%,#6E6A12);border-bottom-color:#55520C}
+h1{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(30px,8.5vw,46px);line-height:1.05;letter-spacing:-.01em;margin:26px 0 14px;max-width:76%}
+h2{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(21px,5.6vw,28px);line-height:1.15;margin-bottom:10px}
+h3{font-family:Unbounded,sans-serif;font-weight:600;font-size:16px;margin-bottom:6px}
+.m{color:var(--m)} .lc{color:var(--l)} .oc{color:#6E6A12}
+.lead{font-size:17px;max-width:540px}
+.hero{position:relative}
+.stk{position:absolute;pointer-events:none;animation:float 5s ease-in-out infinite}
+.stk.b{animation-delay:-2s}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.steps{display:flex;gap:6px;margin:22px 0 6px}
+.steps i{flex:1;height:7px;border-radius:99px;background:#F4ECF1;transition:background .4s}
+.steps i.on{background:linear-gradient(90deg,#FF5C93,var(--m))}
+.card{border-radius:24px;padding:22px 20px;background:var(--soft);margin-top:16px}
+.card.l{background:var(--lsoft)} .card.o{background:var(--osoft)} .card.w{background:#fff;border:1.5px solid var(--line)}
+.q{display:none;animation:in .45s cubic-bezier(.2,.8,.2,1)}
+.q.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.qn{font-size:13px;font-weight:800;color:var(--l);letter-spacing:.05em;margin-bottom:6px}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opts.three{grid-template-columns:1fr 1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;font-weight:700;font-size:16px;color:var(--ink);
+ background:#fff;border:2px solid var(--line);border-radius:18px;padding:14px 16px;cursor:pointer;transition:transform .15s,border-color .2s,background .2s}
+.opt:active{transform:scale(.98)}
+.opt .e{font-size:22px;width:30px;text-align:center;flex:none}
+.opt small{display:block;font-weight:500;font-size:13px;color:var(--mute)}
+.opt.big{flex-direction:column;align-items:center;text-align:center;gap:2px;padding:16px 8px}
+.opt.big b{font-family:Unbounded,sans-serif;font-size:26px;color:var(--m)}
+.opt.sel{border-color:var(--m);background:#FFF5F9;box-shadow:0 4px 14px rgba(227,22,94,.15)}
+.opt.sel:not(.big):after{content:"✓";margin-left:auto;width:26px;height:26px;flex:none;border-radius:50%;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;
+ background:radial-gradient(circle at 35% 30%,#FF8DB2,var(--m) 70%)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font:inherit;font-weight:800;font-size:16px;color:#fff;text-decoration:none;
+ border-radius:99px;padding:15px 26px;background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%),linear-gradient(180deg,#FF5C93,var(--m) 55%,#B80E4A);
+ border-bottom:4px solid #9E0C40;box-shadow:0 6px 16px rgba(227,22,94,.3);transition:transform .15s,opacity .2s}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.btn.l{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%),linear-gradient(180deg,#D99BF0,var(--l) 55%,#8E3FB3);border-bottom-color:#6E2C8E;box-shadow:0 6px 16px rgba(181,101,216,.3)}
+.btn.wide{width:100%}
+.row{display:flex;gap:10px;margin-top:18px;align-items:center}
+.back{white-space:nowrap;background:none;border:0;font:inherit;font-weight:700;color:var(--mute);cursor:pointer;padding:10px 4px}
+input[type=text]{width:100%;font:inherit;font-size:16px;border:2px solid var(--line);border-radius:16px;padding:13px 15px;margin-top:14px;color:var(--ink);background:#fff}
+input:focus{outline:none;border-color:var(--l)}
+.hint{font-size:13px;color:var(--mute);margin-top:6px}
+#result{display:none}
+#result.on{display:block;animation:in .5s cubic-bezier(.2,.8,.2,1)}
+/* неделя */
+#weekCard{background:#fff;border-radius:24px;padding:20px 16px 16px;margin-top:16px;border:1.5px solid var(--line)}
+.wk-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.wk-head small{font-size:12px;color:var(--mute);font-weight:700}
+.day{display:grid;grid-template-columns:46px 1fr;gap:12px;align-items:stretch;margin-top:9px}
+.dn{border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Unbounded,sans-serif;font-weight:800;font-size:15px;color:#fff;
+ background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 50%),linear-gradient(180deg,#FF5C93,var(--m) 60%,#B80E4A);border-bottom:3px solid #9E0C40}
+.day.t .dn{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 50%),linear-gradient(180deg,#D99BF0,var(--l) 60%,#8E3FB3);border-bottom-color:#6E2C8E}
+.day.s .dn{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 50%),linear-gradient(180deg,#C2BD3E,var(--o) 60%,#6E6A12);border-bottom-color:#55520C}
+.day.r .dn{background:#F4ECF1;color:#B9A3AF;border-bottom:3px solid #E6D3DD}
+.dc{border-radius:16px;padding:11px 13px;background:var(--soft)}
+.day.t .dc{background:var(--lsoft)} .day.s .dc{background:var(--osoft)} .day.r .dc{background:#FAF7F8;color:var(--mute)}
+.dc .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;font-weight:800;margin-bottom:3px}
+.chip{border-radius:99px;padding:2px 9px;background:#fff;color:var(--m)}
+.day.t .chip{color:var(--l)} .day.s .chip{color:#6E6A12}
+.dc .rb{font-weight:800;font-size:15px}
+.dc .tp{font-size:14px;color:#5E4A55}
+.bar{display:flex;height:34px;border-radius:99px;overflow:hidden;margin-top:14px;font-weight:800;font-size:12px;color:#fff;text-align:center;line-height:34px}
+.bar div{transition:flex .5s}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:13px;color:var(--mute);font-weight:700}
+.leg span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.rubs{display:grid;gap:10px;margin-top:12px}
+.rub{background:#fff;border-radius:16px;padding:12px 14px;border:2px solid var(--line)}
+.rub b{display:block}
+.rub span{font-size:13.5px;color:var(--mute)}
+.prompt{white-space:pre-wrap;font-size:14px;line-height:1.5;background:#FCF8FE;border:2px dashed var(--l);border-radius:18px;padding:16px;max-height:220px;overflow:auto;margin-top:14px}
+.ais{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.ai{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--ink);font-weight:800;font-size:13px;background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px 6px}
+.ai b{font-size:22px}
+.how{counter-reset:s;list-style:none;margin-top:10px}
+.how li{counter-increment:s;position:relative;padding-left:36px;margin:12px 0}
+.how li:before{content:counter(s);position:absolute;left:0;top:-1px;width:25px;height:25px;border-radius:50%;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;
+ background:radial-gradient(circle at 35% 30%,#FF8DB2,var(--m) 70%)}
+.cmds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.cmd{font:inherit;text-align:left;cursor:pointer;background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px;color:var(--ink);transition:border-color .2s}
+.cmd b{display:block;font-size:14px}
+.cmd span{font-size:12.5px;color:var(--mute)}
+.cmd.ok{border-color:var(--o)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;font-weight:700;
+ padding:12px 20px;border-radius:99px;font-size:14px;transition:all .3s;z-index:9;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.foot{text-align:center;font-size:12.5px;color:var(--mute);margin-top:36px}
+.conf{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+.conf i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall 1.6s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+@media (prefers-reduced-motion:reduce){.stk,.conf i{animation:none}.q,#result.on{animation:none}}
+
+.tabs{display:flex;gap:8px;margin-top:22px;background:#F7EEF3;border-radius:99px;padding:5px}
+.tab{flex:1;border:0;font:inherit;font-weight:800;font-size:14px;border-radius:99px;padding:11px 8px;background:none;color:var(--mute);cursor:pointer}
+.tab.on{color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%),linear-gradient(180deg,#FF5C93,var(--m) 55%,#B80E4A);border-bottom:3px solid #9E0C40}
+.pane{display:none}.pane.on{display:block;animation:in .4s cubic-bezier(.2,.8,.2,1)}
+textarea{width:100%;font:inherit;font-size:16px;border:2px solid var(--line);border-radius:16px;padding:13px 15px;margin-top:14px;color:var(--ink);background:#fff;resize:none}
+textarea:focus{outline:none;border-color:var(--l)}
+.reel{background:#fff;border:2px solid var(--line);border-radius:18px;padding:12px;margin-top:10px;transition:border-color .3s,background .3s}
+.reel .hd{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.reel .no{width:26px;height:26px;border-radius:50%;flex:none;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#E6C0F7,var(--l) 70%)}
+.reel input[type=text]{margin:0;padding:10px 12px;font-size:15px;border-radius:12px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nums label{font-size:11.5px;font-weight:800;color:var(--mute)}
+.nums input{width:100%;font:inherit;font-size:16px;font-weight:700;border:2px solid var(--line);border-radius:12px;padding:9px 10px;margin-top:3px;background:#fff;color:var(--ink)}
+.nums input:focus{outline:none;border-color:var(--l)}
+.verdict{display:none;margin-top:9px;border-radius:12px;padding:9px 11px;font-size:14px;font-weight:700}
+.reel.done .verdict{display:block}
+.v0{background:#F4ECF1;color:#7A6470}.v1{background:#F6EEFB;color:#7E3FA0}.v2{background:#FDE7EF;color:#B80E4A}.v3{background:#F2F1DA;color:#55520C}
+.reel.win{border-color:var(--m);background:#FFF8FB}
+.crown{display:none;white-space:nowrap;flex:none;margin-left:auto;font-size:11px;font-weight:800;color:#fff;border-radius:99px;padding:3px 10px;background:linear-gradient(180deg,#FF5C93,var(--m) 60%,#B80E4A)}
+.reel.win .crown{display:inline-block}
+.scale{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;text-align:center}
+.scale div{border-radius:14px;padding:9px 4px;font-size:11.5px;font-weight:700;line-height:1.25}
+.scale b{display:block;font-family:Unbounded,sans-serif;font-size:13px;margin-bottom:2px}
+.tpl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tpl div{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px;font-size:13px;color:var(--mute)}
+.tpl b{display:block;color:var(--ink);font-size:13.5px}
+
+.heat{font-size:12px;font-weight:800;letter-spacing:.05em;margin:16px 0 4px;color:var(--mute)}
+.sits{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sit{font:inherit;text-align:left;cursor:pointer;background:#fff;border:2px solid var(--line);border-radius:16px;padding:11px 12px;color:var(--ink);font-weight:800;font-size:14px;line-height:1.25;transition:border-color .2s,background .2s}
+.sit small{display:block;font-weight:500;font-size:12px;color:var(--mute);margin-top:2px}
+.sit.sel{border-color:var(--m);background:#FFF5F9}
+.seg{display:flex;gap:6px;background:#F7EEF3;border-radius:99px;padding:4px;margin-top:10px}
+.seg button{flex:1;border:0;font:inherit;font-weight:800;font-size:13.5px;border-radius:99px;padding:9px 6px;background:none;color:var(--mute);cursor:pointer}
+.seg button.on{background:#fff;color:var(--m);box-shadow:0 2px 6px rgba(80,20,60,.12)}
+.fl{font-size:12.5px;font-weight:800;color:var(--mute);margin-top:12px;display:block}
+.fl + input{margin-top:5px}
+.var{background:#fff;border:2px solid var(--line);border-radius:20px;padding:14px;margin-top:12px}
+.var .vh{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.var .vt{font-family:Unbounded,sans-serif;font-weight:600;font-size:13px}
+.bubble{background:linear-gradient(180deg,#FFF0F6,#FDE7EF);border-radius:18px 18px 18px 6px;padding:12px 14px;font-size:15.5px;line-height:1.45;white-space:pre-wrap}
+.why{font-size:12.5px;color:var(--mute);margin-top:8px}
+.acts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
+.act{display:flex;align-items:center;justify-content:center;gap:5px;font:inherit;font-weight:800;font-size:13px;border-radius:12px;padding:10px 4px;cursor:pointer;text-decoration:none;border:2px solid var(--line);background:#fff;color:var(--ink)}
+.act.wa{background:#25D366;border-color:#1DA851;color:#fff}
+.act.tg{background:#2AABEE;border-color:#1E8FCB;color:#fff}
+.tog{display:flex;align-items:center;gap:10px;margin-top:12px;font-weight:700;font-size:14px;cursor:pointer}
+.tog input{width:20px;height:20px;accent-color:var(--m)}
+.five{display:grid;gap:8px;margin-top:12px}
+.fr{display:flex;gap:8px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:16px;padding:8px 10px;transition:border-color .3s,background .3s}
+.fr input[type=text]{margin:0;border:0;padding:6px 4px;font-size:15px}
+.fr input[type=text]:focus{border:0}
+.chk{flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:transparent}
+.fr.done{border-color:var(--o);background:#FAFAEF}
+.fr.done .chk{background:radial-gradient(circle at 35% 30%,#DCD87A,var(--o) 70%);border-color:var(--o);color:#fff}
+.prog{height:14px;border-radius:99px;background:#F4ECF1;overflow:hidden;margin-top:14px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#FF5C93,var(--m));transition:width .5s;border-radius:99px}
+.rules{list-style:none;margin-top:10px}
+.rules li{padding:9px 0 9px 30px;position:relative;border-bottom:1.5px dashed var(--line);font-size:14.5px}
+.rules li:last-child{border:0}
+.rules li b{display:block}
+.rules li:before{content:attr(data-e);position:absolute;left:0;top:8px;font-size:17px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="pill">МЕТОД РОДОЧИНСКОЙ</span><span class="pill l">РОЛЬ 4 · ГЛАВНАЯ РОЛЬ</span></div>
+  <div class="hero">
+    <svg class="stk" style="right:-8px;top:-4px;width:76px;rotate:-10deg" viewBox="0 0 100 100"><defs><radialGradient id="a" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FF7BA6"/><stop offset="1" stop-color="#E3165E"/></radialGradient></defs><path d="M50 90C20 68 6 52 6 34 6 18 18 8 32 8c8 0 14 4 18 10 4-6 10-10 18-10 14 0 26 10 26 26 0 18-14 34-44 56z" fill="url(#a)" stroke="#E3165E" stroke-width="1.5"/><ellipse cx="34" cy="28" rx="13" ry="7" fill="#fff" opacity=".55" transform="rotate(-25 34 28)"/></svg>
+    <svg class="stk b" style="right:62px;top:-14px;width:34px" viewBox="0 0 100 100"><defs><radialGradient id="b" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#E2B6F5"/><stop offset="1" stop-color="#B565D8"/></radialGradient></defs><path d="M50 2c4 26 10 40 46 48-36 8-42 22-46 48-4-26-10-40-46-48 36-8 42-22 46-48z" fill="url(#b)" stroke="#B565D8" stroke-width="1.5"/><ellipse cx="42" cy="34" rx="10" ry="5" fill="#fff" opacity=".55" transform="rotate(-25 42 34)"/></svg>
+    <h1>Напиши <span class="m">своим</span></h1>
+    <p class="lead">Деньги часто уже лежат в твоих переписках. Выбери, кому пишешь, впиши имя, и готовое сообщение улетит в WhatsApp или Telegram за 20 секунд.</p>
+  </div>
+
+  <div class="tabs"><button class="tab on" data-p="build" type="button">✉️ Сообщение</button><button class="tab" data-p="today" type="button">✅ Мои 5</button><button class="tab" data-p="gym" type="button">🥊 Тренажёр</button></div>
+
+  <!-- КОНСТРУКТОР -->
+  <div class="pane on" id="build">
+    <div class="card">
+      <div class="qn">ШАГ 1</div>
+      <h2>Кто ты?</h2>
+      <div class="seg" id="role"><button class="on" data-v="expert" type="button">🎓 Эксперт</button><button data-v="master" type="button">💅 Мастер</button><button data-v="goods" type="button">🛍️ Товары</button><button data-v="blogger" type="button">📸 Блогер</button></div>
+      <div class="seg" id="me" style="margin-top:8px"><button class="on" data-v="f" type="button">Я пишу как она</button><button data-v="m" type="button">как он</button></div>
+    </div>
+
+    <div class="card o">
+      <div class="qn">ШАГ 2</div>
+      <h2>Детали</h2>
+      <div class="seg" id="vy"><button class="on" data-v="ty" type="button">На «ты»</button><button data-v="vy" type="button">На «вы»</button></div>
+      <label class="fl" for="nm">Имя человека</label><input type="text" id="nm" maxlength="40" placeholder="Например: Аня">
+      <label class="fl" for="pr">Название твоего продукта или услуги</label><input type="text" id="pr" maxlength="80" placeholder="Например: окрашивание, консультация, свеча «Лаванда»">
+      <label class="fl" for="who">Кто ты одним-двумя словами</label><input type="text" id="who" maxlength="40" placeholder="Например: колорист, психолог, наша свечная мастерская">
+      <label class="fl" for="bn">Подарок или условие (по желанию)</label><input type="text" id="bn" maxlength="80" placeholder="Например: уход в подарок, бонус 500 ₽">
+      <label class="tog"><input type="checkbox" id="tm"> ⏳ Добавить ограничение по времени</label>
+    </div>
+
+    <div class="card l">
+      <div class="qn">ШАГ 3</div>
+      <h2>Кому пишем?</h2>
+      <div id="sitBox"></div>
+    </div>
+
+    <div id="out"></div>
+
+    <div class="card w">
+      <h2>5 правил, <span class="m">после которых отвечают</span></h2>
+      <ul class="rules">
+        <li data-e="💬"><b>Не похоже на рассылку</b>По имени, лично, как пишешь подруге. Одно и то же «всем привет» сразу видно.</li>
+        <li data-e="❓"><b>Сначала потребность, потом цена</b>На «сколько стоит» спроси, что происходит, покажи, что человек получит, назови цену и предложи время.</li>
+        <li data-e="👉"><b>Одно предложение и понятный шаг</b>Не три тарифа на выбор, а «записать на четверг?».</li>
+        <li data-e="🎙"><b>Голосом тем, с кем давно не общались</b>Живой голос снимает ощущение рассылки.</li>
+        <li data-e="💪"><b>Пиши из позиции силы</b>Возражение значит, что не хватает информации или доверия. Одно сообщение без ответа ещё не отказ.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- МОИ 5 -->
+  <div class="pane" id="today">
+    <div class="card">
+      <h2>Мои 5 <span class="m">на сегодня</span></h2>
+      <p>Впиши 5 человек, которым напишешь сегодня. Начни с горячих: бывшие клиенты и те, кто уже спрашивал. Отправила, жми галочку.</p>
+      <div class="five" id="five"></div>
+      <div class="prog"><i id="pg"></i></div>
+      <p class="hint" id="pgt" style="margin-top:8px;text-align:center">0 из 5</p>
+    </div>
+    <div class="card o" id="doneCard" style="display:none">
+      <h2>Ты это сделала! 🎉</h2>
+      <p>5 сообщений своим, это уже система. Сделай скриншот и отправь в «Хвастаюсь» мини-приложения: пока идёт интенсив, за это начисляются баллы. А когда придут ответы, тоже хвастайся!</p>
+      <button class="btn l wide" type="button" id="reset5" style="margin-top:14px">↺ Новые 5 на завтра</button>
+    </div>
+  </div>
+
+  <!-- ТРЕНАЖЁР -->
+  <div class="pane" id="gym">
+    <div class="card">
+      <span class="pill">🥊 ТРЕНАЖЁР ПРОДАЖ</span>
+      <h2 style="margin-top:14px">Нейросеть играет <span class="m">сомневающуюся клиентку</span></h2>
+      <p>А ты продаёшь. Она говорит «дорого» и «я подумаю», а в конце разбирает твою продажу и ставит оценку. Лучше ошибиться здесь, чем с настоящим клиентом.</p>
+      <label class="fl" for="gp">Что продаёшь и за сколько</label><input type="text" id="gp" maxlength="120" placeholder="Например: курс по питанию для мам, 15 000 ₽">
+      <button class="btn wide" type="button" id="copyGym" style="margin-top:14px">📋 Скопировать тренажёр</button>
+      <div class="ais">
+        <a class="ai" href="https://chatgpt.com/" target="_blank" rel="noopener"><b>💬</b>ChatGPT</a>
+        <a class="ai" href="https://chat.deepseek.com/" target="_blank" rel="noopener"><b>🐳</b>DeepSeek</a>
+        <a class="ai" href="https://giga.chat/" target="_blank" rel="noopener"><b>🟢</b>GigaChat</a>
+      </div>
+    </div>
+    <div class="card l">
+      <span class="pill l">🔍 РАЗБОР ПЕРЕПИСОК</span>
+      <h2 style="margin-top:14px">Кому что <span class="lc">предложить</span></h2>
+      <p>Вставь в нейросеть свои переписки (можно скринами). Она соберёт таблицу: кто что спрашивал, кто купил, на чём остановились, и напишет сообщение каждому.</p>
+      <button class="btn l wide" type="button" id="copyBase" style="margin-top:14px">📋 Скопировать промпт разбора</button>
+      <p class="hint" style="margin-top:8px">Совет: перед вставкой можно заменить имена клиентов на инициалы.</p>
+    </div>
+  </div>
+
+  <div class="card w" id="cta">
+    <h2>Это 1 шаг из системы. <span class="m">Остальные пройдём вместе</span></h2>
+    <p>На <b>Контент-профи 12.0</b> разбираем дальше: психологию продаж, прогрев, который продаёт каждый день, воронки на кодовое слово и тренажёр, где нейросеть играет сомневающегося клиента, а ты продаёшь. С кураторами, которые ведут за руку.</p>
+    <div id="ctaBox" style="margin-top:16px"></div>
+  </div>
+  <p class="foot">Школа по маркетингу и нейросетям Юлии Родочинской</p>
+</div>
+<div class="toast" id="toast"></div>
+<div class="conf" id="conf"></div>
+<script>
+/* ===== НАСТРОЙКИ ===== */
+var WAITLIST_URL = "";   // ссылка на лист ожидания, например "https://..."
+var CARE_CONTACT = "";   // контакт отдела заботы, например "@care_rodochinskaya"
+/* ===================== */
+
+function $(id){ return document.getElementById(id); }
+function toast(t){ var e=$("toast"); e.textContent=t; e.classList.add("on"); clearTimeout(e._t); e._t=setTimeout(function(){ e.classList.remove("on"); },2200); }
+function copyText(t,done){
+  function fb(){ var ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0,t.length); var ok=false; try{ ok=document.execCommand("copy"); }catch(e){} document.body.removeChild(ta); done(ok); }
+  if (navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(t).then(function(){ done(true); }, fb); } else fb();
+}
+function confetti(){
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var box=$("conf"), cols=["#E3165E","#B565D8","#94901F","#FF7BA6","#E2B6F5"];
+  for (var i=0;i<60;i++){ var p=document.createElement("i"); p.style.left=Math.random()*100+"%"; p.style.background=cols[i%cols.length];
+    p.style.animationDelay=(Math.random()*.5)+"s"; p.style.animationDuration=(1.2+Math.random()*1.2)+"s"; box.appendChild(p); }
+  setTimeout(function(){ box.innerHTML=""; },3200);
+}
+function tab(p){
+  document.querySelectorAll(".tab").forEach(function(t){ t.classList.toggle("on", t.getAttribute("data-p")===p); });
+  document.querySelectorAll(".pane").forEach(function(x){ x.classList.toggle("on", x.id===p); });
+}
+document.querySelectorAll(".tab").forEach(function(b){ b.addEventListener("click", function(){ tab(b.getAttribute("data-p")); }); });
+
+/* ---------- ШАБЛОНЫ ----------
+ <<ты~вы>>  обращение;  {она|он}  мой род;  %N% имя;  %P% продукт;  %W% кто я;  %B% подарок;  %V% встреча/визит/заказ */
+var SITS = [
+ {k:"regular", heat:"🔥 ГОРЯЧИЕ", t:"Постоянный клиент", s:"записать заранее", why:"Постоянных проще всего вернуть: они уже доверяют. Запись наперёд держит их рядом.",
+  v:[["Тепло","<<Привет~Здравствуйте>>, %N%! Вижу, что мы ещё не запланировали <<твой~ваш>> следующий %V%. Давай это исправим 🙂 Есть свободные окошки: [дни и время]. Какое <<тебе~вам>> удобнее?"],
+     ["С юмором","%N%, <<привет~добрый день>>! Мой календарь уже скучает по <<тебе~вам>> 😄 Отправляю свободные окошки на [период], <<выбирай~выбирайте>>, пока их не разобрали: [дни]."],
+     ["Коротко","%N%, <<привет~здравствуйте>>! Пора планировать следующий %V%. Есть [день] и [день]. Записать?"]],
+  goods:[["Тепло","<<Привет~Здравствуйте>>, %N%! По моим подсчётам, %P% у <<тебя~вас>> скоро закончится 🙂 Отложить <<тебе~вам>> новый, чтобы не остаться без любимого?"],
+     ["С юмором","%N%, <<привет~добрый день>>! <<Твой~Ваш>> запас «%P%» подаёт сигналы SOS 😄 Собрать <<тебе~вам>> повторный заказ?"],
+     ["Коротко","%N%, <<привет~здравствуйте>>! Пора пополнить запас «%P%». Оформить повторный заказ с доставкой к [дата]?"]]},
+ {k:"lapsed", heat:"🔥 ГОРЯЧИЕ", t:"Бывший клиент пропал", s:"давно не приходил(а)", why:"Честный вопрос «что помешало» выводит на диалог, а не на «нет». Пиши из позиции силы.",
+  v:[["Честно","<<Привет~Здравствуйте>>, %N%! Хочу <<тебя~вас>> попросить об одной важной вещи. <<Скажи~Скажите>>, пожалуйста, честно: что помешало прийти ко мне снова? Мне правда важно это знать. Если в моей работе что-то было не так, я не смогу стать лучше, пока не узнаю. Я не обижусь, обещаю 🙏"],
+     ["С юмором","<<Привет~Здравствуйте>>, %N%! Где-то в мире грустит один %W%, потому что мы давно не виделись 🥲 <<Поделись~Поделитесь>>, что помешало вернуться? Буду {рада|рад} любой обратной связи, даже если что-то не понравилось."],
+     ["С подарком","%N%, <<привет~здравствуйте>>! Мы давно не виделись, и я {соскучилась|соскучился} 🙂 Хочу сделать <<тебе~вам>> подарок: %B%, если <<запишешься~запишетесь>> в этом месяце. Подсказать свободные окошки?"]],
+  goods:[["Честно","<<Привет~Здравствуйте>>, %N%! Хочу <<тебя~вас>> спросить честно: почему <<ты больше не заказываешь~вы больше не заказываете>>? Если что-то было не так с товаром или доставкой, мне очень важно это знать. Я не обижусь, обещаю 🙏"],
+     ["С юмором","<<Привет~Здравствуйте>>, %N%! Где-то грустит один %W%, потому что давно не собирал для <<тебя~вас>> заказ 🥲 <<Поделись~Поделитесь>>, что изменилось?"],
+     ["С подарком","%N%, <<привет~здравствуйте>>! Давно не виделись 🙂 Для <<тебя~вас>> подарок к следующему заказу: %B%. Собрать?"]]},
+ {k:"upsell", heat:"🔥 ГОРЯЧИЕ", t:"Предложить ещё", s:"допродажа после покупки", why:"Не предлагать дополнительное, значит терять деньги. Предлагай как заботу о результате.",
+  v:[["Забота","%N%, как <<тебе~вам>> результат? 😊 Чтобы он держался дольше, советую [дополнительная услуга или товар]. Могу добавить к следующему %V%, <<хочешь~хотите>>?"],
+     ["Совет","%N%, <<привет~здравствуйте>>! К этому многие берут ещё [дополнение]: это [зачем]. <<Добавить тебе~Добавить вам>>?"],
+     ["Коротко","%N%, к следующему %V% можно добавить [дополнение] за [цена]. Добавить?"]]},
+ {k:"interested", heat:"🌤 ТЁПЛЫЕ", t:"Интересовался(ась), не купил(а)", s:"спрашивал(а), но пропал(а)", why:"«Я переживаю» и персональное внимание закрывают сомнения лучше, чем повторный прайс.",
+  v:[["Забота","<<Привет~Добрый день>>, %N%! Немного переживаю: у <<тебя~вас>> был вопрос про «%P%», но мы так и не договорились. Возможно, я на что-то не {ответила|ответил}, и остались сомнения. <<Напиши~Напишите>>, что волнует, с радостью отвечу 🙏"],
+     ["Персонально","%N%, <<привет~добрый день>>! Мы недавно переписывались про «%P%». Было много заявок, и я не {уточнила|уточнил}, что именно <<тебе~вам>> нужно. <<Расскажи~Расскажите>> в двух словах [что важно уточнить], и я подскажу, что подойдёт именно <<тебе~вам>>."],
+     ["Маленький шаг","%N%, <<привет~здравствуйте>>! Если для «%P%» пока не время, есть вариант проще: [маленький продукт] за [цена]. <<Посмотришь~Посмотрите>>?"]]},
+ {k:"ghost", heat:"🌤 ТЁПЛЫЕ", t:"Пропал(а) после цены", s:"узнал(а) цену и молчит", why:"Одно сообщение без ответа ещё не отказ. Человеку нужно 5–7 касаний.",
+  v:[["Голосом","%N%, <<привет~здравствуйте>>! Кажется, я <<тебя~вас>> {потеряла|потерял} 🙂 Остались вопросы по «%P%»? Могу ответить голосовым, так быстрее 🎙"],
+     ["Польза","%N%, не хочу надоедать, просто помню <<твой~ваш>> запрос про [проблема]. Вот [полезный совет] по теме, даже если ко мне не <<пойдёшь~пойдёте>> 💛"],
+     ["Последнее","%N%, последнее напоминание, обещаю 🙂 %B% действует до [дата]. Если неактуально, просто <<напиши~напишите>> «нет», я не обижусь."]]},
+ {k:"price", heat:"🌤 ТЁПЛЫЕ", t:"Спросили «Сколько стоит?»", s:"не теряй на цене", why:"«5000 ₽» в ответ на «сколько стоит» это вопрос в никуда. Сначала потребность, потом ценность, цена и время.",
+  v:[["Шаг 1: вопрос","Спасибо за вопрос! <<Расскажи~Расскажите>>, что сейчас происходит с [проблема] и к чему <<хочешь~хотите>> прийти? Подскажу, какой формат подойдёт, и сразу назову цену."],
+     ["Шаг 2: цена","Стоимость «%P%»: [цена], сюда входит [что входит]. В итоге <<ты получишь~вы получите>> [результат]. Удобнее начать на этой неделе или на следующей?"],
+     ["Для товара","%P% стоит [цена]. Его хватает на [срок], это примерно [цена за раз] за раз. Оформить к [день доставки]?"]]},
+ {k:"objection", heat:"🌤 ТЁПЛЫЕ", t:"«Дорого», «подумаю», «не сейчас»", s:"ответ на возражение", why:"Возражение значит, что не хватает информации или доверия. Покажи, что входит, результат и как окупится.",
+  v:[["«Дорого»","Понимаю. <<Давай~Давайте>> посчитаем: сколько стоит не решать [проблема] ещё полгода? %P% окупается тем, что [выгода]. Если удобнее частями, есть [рассрочка или маленький шаг]."],
+     ["«Подумаю»","Конечно, <<подумай~подумайте>>! Чтобы было проще: что сейчас вызывает больше всего сомнений? Отвечу честно. Место держу за <<тобой~вами>> до [дата]."],
+     ["«Не сейчас»","Понимаю. А когда будет «сейчас»? Спрашиваю, чтобы напомнить в удобный момент, а не надоедать 🙂"]]},
+ {k:"stories", heat:"❄️ ХОЛОДНЫЕ", t:"Смотрит сторис, но не покупал(а)", s:"первое знакомство", why:"Холодным нужно предложение, от которого трудно отказаться: знакомство, подарок к услуге или фиксированная цена.",
+  v:[["Знакомство","<<Привет~Здравствуйте>>, %N%! Вижу, что <<ты смотришь~вы смотрите>> мои сторис, но мы ещё не знакомы лично 🙂 Хочу это исправить и {придумала|придумал} для <<тебя~вас>> предложение: %B%. Интересно?"],
+     ["Секретный выбор","%N%, поздравляю! 🎉 Раз в месяц я выбираю 3 человек среди тех, кто смотрит мои сторис, и дарю им %B%. В этот раз это <<ты~вы>>! <<Хочешь~Хотите>> забрать?"],
+     ["Амбициозная цель","%N%, <<привет~добрый день>>! Я сейчас беру больше клиентов, потому что {поставила|поставил} себе амбициозную цель, и хочу видеть <<тебя~вас>> среди них. Для первого знакомства: %B%. Интересно?"]]},
+ {k:"friends", heat:"❄️ ХОЛОДНЫЕ", t:"Знакомые и окружение", s:"рассказать, чем занимаешься", why:"Знакомые охотно помогают, если просить совета и рекомендации, а не «впаривать».",
+  v:[["Рассказать","Привет, %N%! Давно не общались 😊 Расскажу, чем я теперь занимаюсь: я %W%, [одна фраза, чем помогаешь]. Если у тебя или знакомых есть [проблема], буду {рада|рад} помочь."],
+     ["Совет","%N%, привет! Нужен твой совет. Я запускаю «%P%» для [кого]. Как думаешь, кому из твоих знакомых это может быть интересно?"],
+     ["Рекомендация","%N%, привет! Можно попрошу? Если у кого-то из твоих знакомых есть [проблема], перешли им мой контакт, пожалуйста. Мне это очень поможет 🙏"]]}
+];
+var BSITS = [
+ {k:"b_repeat", heat:"🔥 ГОРЯЧИЕ", t:"Бренд, с которым работали", s:"предложить продолжение", why:"Бренду проще повторить удачное, чем искать нового. Напомни результат и дай идею.",
+  v:[["С результатом","Здравствуйте, %N%! Мы с вами делали интеграцию [продукт бренда] в [месяц], ролик набрал [цифры]. У меня есть идея продолжения: [идея]. Обсудим?"],
+     ["Контент-план","Здравствуйте, %N%! Собираю контент-план на [месяц], и у меня есть место для вашего бренда. Повторим [формат]?"],
+     ["Коротко","%N%, добрый день! Готов{а|} снова поработать с [бренд]: есть идея под [повод]. Пришлю детали?"]]},
+ {k:"b_silent", heat:"🌤 ТЁПЛЫЕ", t:"Бренд не ответил", s:"вернуться к предложению", why:"Бренды получают много писем. Короткий пример работы цепляет лучше длинного текста.",
+  v:[["С примером","Здравствуйте, %N%! Возвращаюсь к своему предложению по [продукт бренда]. Понимаю, что писем много 🙂 Вот короткий пример, как это может выглядеть: [ссылка]. Интересно?"],
+     ["Мягко","Здравствуйте, %N%! Напомню о себе последний раз 🙂 Если сейчас не время, подскажите, когда лучше вернуться к разговору?"],
+     ["Через результат","%N%, добрый день! Недавно сделал{а|} ролик для [другой бренд], он набрал [цифры]. Могу сделать похожий для вас. Пришлю идею?"]]},
+ {k:"b_cold", heat:"❄️ ХОЛОДНЫЕ", t:"Новый бренд", s:"первое предложение", why:"Начни с того, что ты правда пользуешься продуктом, и сразу дай конкретную идею ролика.",
+  v:[["Через продукт","Здравствуйте, %N%! Я %W% и давно пользуюсь [продукт бренда] {сама|сам}. Мои подписчики [кто они], им это близко. Хочу предложить [формат]: [идея ролика]. Медиакит пришлю. Интересно?"],
+     ["Через идею","Добрый день, %N%! Придумал{а|} для [бренд] ролик: [идея в одну строку]. Такие у меня набирают [цифры]. Обсудим?"],
+     ["Коротко","Здравствуйте! Я %W%, снимаю [о чём]. Хочу сделать интеграцию [продукт бренда]. Пришлю медиакит?"]]},
+ {k:"b_price", heat:"🌤 ТЁПЛЫЕ", t:"Бренд спросил цену", s:"прайс без потерь", why:"Сначала уточни задачу бренда, потом прайс с тем, что входит.",
+  v:[["Шаг 1: задача","Спасибо за интерес! Подскажите, какая задача у ролика: охват, продажи или контент для ваших соцсетей? Под неё предложу формат и сразу пришлю стоимость."],
+     ["Шаг 2: прайс","Стоимость [формат]: [цена], сюда входит [сценарий, съёмка, монтаж, правки]. Права на использование: [условия]. Можем начать с [дата]."],
+     ["Пакет","Есть пакет: [количество] роликов за [цена] вместо [цена]. Удобно, если планируете серию. Рассказать подробнее?"]]},
+ SITS[8]
+];
+var ROLEV={expert:{V:"шаг",W:"специалист"},master:{V:"визит",W:"мастер"},goods:{V:"заказ",W:"магазин"},blogger:{V:"проект",W:"блогер"}};
+var st={role:"expert",me:"f",vy:"ty",sit:"regular"};
+
+function segs(id,key,cb){
+  document.querySelectorAll("#"+id+" button").forEach(function(b){ b.addEventListener("click", function(){
+    document.querySelectorAll("#"+id+" button").forEach(function(x){ x.classList.remove("on"); }); b.classList.add("on"); st[key]=b.getAttribute("data-v"); if(cb) cb(); render(); }); });
+}
+segs("role","role",drawSits); segs("me","me"); segs("vy","vy");
+function list(){ return st.role==="blogger"?BSITS:SITS; }
+function drawSits(){
+  var L=list(); if (!L.some(function(s){return s.k===st.sit;})) st.sit=L[0].k;
+  var h="", last="";
+  L.forEach(function(s){
+    if (s.heat!==last){ if(last) h+="</div>"; h+='<div class="heat">'+s.heat+'</div><div class="sits">'; last=s.heat; }
+    h+='<button class="sit'+(s.k===st.sit?" sel":"")+'" data-k="'+s.k+'" type="button">'+s.t+'<small>'+s.s+'</small></button>';
+  });
+  $("sitBox").innerHTML=h+"</div>";
+  document.querySelectorAll(".sit").forEach(function(b){ b.addEventListener("click", function(){ st.sit=b.getAttribute("data-k"); drawSits(); render();
+    setTimeout(function(){ $("out").scrollIntoView({behavior:"smooth",block:"start"}); },50); }); });
+}
+function fill(t){
+  var nm=$("nm").value.trim(), pr=$("pr").value.trim()||"[продукт]", who=$("who").value.trim()||ROLEV[st.role].W, bn=$("bn").value.trim()||"[подарок или бонус]";
+  t=t.replace(/<<([^~>]*)~([^>]*)>>/g,function(_,a,b){ return st.vy==="vy"?b:a; });
+  t=t.replace(/\{([^|{}]*)\|([^|{}]*)\}/g,function(_,a,b){ return st.me==="f"?a:b; });
+  t=t.replace(/«%P%»/g, pr==="[продукт]"?pr:"«"+pr.charAt(0).toUpperCase()+pr.slice(1)+"»").replace(/%P%/g,pr).replace(/%W%/g,who).replace(/%B%/g,bn).replace(/%V%/g,ROLEV[st.role].V);
+  if (nm) t=t.replace(/%N%/g,nm);
+  else { t=t.replace(/%N%, /g,"").replace(/, %N%/g,"").replace(/ %N%/g,"").replace(/%N%/g,""); t=t.charAt(0).toUpperCase()+t.slice(1); }
+  if ($("tm").checked && ["price","objection","b_price","friends","ghost"].indexOf(st.sit)<0) t+= (st.vy==="vy"||st.role==="blogger"?"\n\nЭто предложение для вас действует до завтра, до конца дня.":"\n\nЭто предложение для тебя действует до завтра, до конца дня.");
+  return t;
+}
+function esc(s){ var d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+var cur=[];
+function render(){
+  var s=list().filter(function(x){return x.k===st.sit;})[0];
+  var vars=(st.role==="goods"&&s.goods)?s.goods:s.v;
+  cur=vars.map(function(v){ return fill(v[1]); });
+  var h='<div class="card" style="background:#fff;border:1.5px solid var(--line)"><div class="qn">ГОТОВО · '+esc(s.t.toUpperCase())+'</div><h2>Выбери <span class="m">вариант</span></h2>';
+  vars.forEach(function(v,i){
+    var enc=encodeURIComponent(cur[i]);
+    h+='<div class="var"><div class="vh"><span class="no" style="width:24px;height:24px;border-radius:50%;color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#FF8DB2,#E3165E 70%)">'+(i+1)+'</span><span class="vt">'+v[0]+'</span></div>'+
+       '<div class="bubble">'+esc(cur[i])+'</div>'+
+       '<div class="acts"><button class="act" type="button" data-i="'+i+'">📋 Копия</button><a class="act wa" href="https://wa.me/?text='+enc+'" target="_blank" rel="noopener">WhatsApp</a><a class="act tg" href="https://t.me/share/url?url=%20&text='+enc+'" target="_blank" rel="noopener">Telegram</a></div></div>';
+  });
+  h+='<p class="why">💡 '+s.why+' Всё в [скобках] замени на своё.'+($("tm").checked?' Ограничение по времени ставь, только если это правда.':'')+'</p></div>';
+  $("out").innerHTML=h;
+  document.querySelectorAll(".act[data-i]").forEach(function(b){ b.addEventListener("click", function(){ copyText(cur[+b.getAttribute("data-i")], function(ok){ if(ok) toast("Сообщение скопировано 💖"); }); }); });
+}
+["nm","pr","who","bn"].forEach(function(id){ $(id).addEventListener("input", render); });
+$("tm").addEventListener("change", render);
+drawSits(); render();
+
+/* ---------- МОИ 5 ---------- */
+var KEY="metod_moi5", five=[];
+try{ five=JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ five=[]; }
+while(five.length<5) five.push({n:"",d:false});
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(five)); }catch(e){} }
+function drawFive(){
+  var h=""; five.forEach(function(f,i){ h+='<div class="fr'+(f.d?" done":"")+'"><button class="chk" type="button" data-i="'+i+'" aria-label="Отправлено">✓</button><input type="text" data-i="'+i+'" maxlength="40" placeholder="Человек '+(i+1)+': имя и кто это" value="'+esc(f.n).replace(/"/g,"&quot;")+'"></div>'; });
+  $("five").innerHTML=h; prog(false);
+  document.querySelectorAll(".fr input").forEach(function(x){ x.addEventListener("input", function(){ five[+x.getAttribute("data-i")].n=x.value; save(); }); });
+  document.querySelectorAll(".chk").forEach(function(b){ b.addEventListener("click", function(){ var i=+b.getAttribute("data-i"); five[i].d=!five[i].d; save(); b.parentNode.classList.toggle("done",five[i].d); prog(true); }); });
+}
+function prog(anim){
+  var n=five.filter(function(f){return f.d;}).length;
+  $("pg").style.width=(n/5*100)+"%"; $("pgt").textContent=n+" из 5"+(n===5?" 🎉":"");
+  var was=$("doneCard").style.display==="block";
+  $("doneCard").style.display=n===5?"block":"none";
+  if (n===5 && anim && !was) confetti();
+}
+$("reset5").addEventListener("click", function(){ five=[]; while(five.length<5) five.push({n:"",d:false}); save(); drawFive(); });
+drawFive();
+
+/* ---------- ТРЕНАЖЁР ---------- */
+function gym(){
+  var p=$("gp").value.trim()||"[что продаю и за сколько]";
+  return "Давай сыграем в тренажёр продаж по Методу Родочинской. Я продаю: "+p+".\n\n"+
+  "ТВОЯ РОЛЬ\nТы моя потенциальная клиентка: тебе интересно, но ты сомневаешься. Веди себя как реальный человек в переписке: коротко, иногда пропадай, задавай вопросы про цену и результат. По ходу разговора используй возражения: «дорого», «я подумаю», «а точно поможет?», «мне надо посоветоваться», «не сейчас». Не соглашайся слишком быстро, но если я хорошо отвечаю, постепенно теплей.\n\n"+
+  "ПРАВИЛА\nПиши только реплики клиентки, без подсказок мне. Начни с сообщения «Здравствуйте, сколько стоит?».\n\n"+
+  "РАЗБОР\nПосле 8 моих сообщений или когда я напишу «стоп», выйди из роли и разбери мою продажу: спросил(а) ли я сначала о потребности или сразу назвал(а) цену; показал(а) ли, что входит и какой результат; как отработал(а) каждое возражение; предложил(а) ли понятный следующий шаг и время. Поставь оценку от 1 до 10 и дай 3 конкретных совета с примерами фраз.";
+}
+$("copyGym").addEventListener("click", function(){ var b=this; copyText(gym(), function(ok){ if(ok){ b.textContent="✅ Скопировано! Вставь в нейросеть"; toast("Тренажёр скопирован 🥊"); } }); });
+var BASE="Вот мои переписки с клиентами и теми, кто интересовался: [вставь текст или скрины]. Мой продукт: [что продаёшь и почём].\n\nСоставь таблицу: имя · что спрашивал(а) · купил(а) или нет · на чём остановились. Потом раздели всех на 3 группы: бывшие клиенты, интересовались и не купили, пропали после цены. Для каждого человека напиши, что предложить сейчас, и короткое сообщение для отправки: живо, на «ты», лично, без давления и чтобы не было похоже на рассылку. Не придумывай факты, опирайся только на переписки.";
+$("copyBase").addEventListener("click", function(){ var b=this; copyText(BASE, function(ok){ if(ok){ b.textContent="✅ Скопировано!"; toast("Промпт скопирован 💖"); } }); });
+
+(function(){
+  var box=$("ctaBox"), h="";
+  if (WAITLIST_URL) h+='<a class="btn wide" href="'+WAITLIST_URL+'" target="_blank" rel="noopener">Встать в лист ожидания</a>';
+  if (CARE_CONTACT) h+='<p class="hint" style="margin-top:12px;text-align:center">Вопросы? Пиши в отдел заботы: <b>'+CARE_CONTACT+'</b></p>';
+  if (!h) $("cta").style.display="none"; else box.innerHTML=h;
+})();
+</script>
+
+</body>
+</html>
